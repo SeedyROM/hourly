@@ -13,7 +13,7 @@ int main() {
     shape.setFillColor(sf::Color::Green);
 
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event = sf::Event();
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
