@@ -2,13 +2,17 @@
 // Created by rombus on 6/16/18.
 //
 
-#ifndef SPACE_INVADERS_SPRITEANIMATION_H
-#define SPACE_INVADERS_SPRITEANIMATION_H
+#pragma once
 
+#include <vector>
 
-class SpriteAnimation {
-    SpriteAnimation();
-};
+namespace Animation {
+    struct Frame {
+        std::vector<std::string> imagePath;
+    };
 
-
-#endif //SPACE_INVADERS_SPRITEANIMATION_H
+    struct SpriteAnimation {
+        std::vector<Animation::Frame> frames;
+        SpriteAnimation();
+    };
+}

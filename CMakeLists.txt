@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
-project(space_invaders)
+set(EXEC_NAME space_invaders)
+project(${EXEC_NAME})
 
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(lib)
 
-add_executable(space_invaders main.cpp src/SpriteAnimation.cpp lib/SpriteAnimation.h)
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+add_executable(${EXEC_NAME} main.cpp src/SpriteAnimation.cpp lib/SpriteAnimation.h)
+target_link_libraries(${EXEC_NAME} sfml-graphics sfml-audio)
