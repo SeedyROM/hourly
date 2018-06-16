@@ -3,4 +3,6 @@ project(space_invaders)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(space_invaders main.cpp)
+include_directories(lib)
+
+add_executable(space_invaders main.cpp src/SpriteAnimation.cpp lib/SpriteAnimation.h)

@@ -1,6 +1,8 @@
 #include <iostream>
 
+#include <SpriteAnimation.h>
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Hello, Boys and Girls!" << std::endl;
     return 0;
 }
