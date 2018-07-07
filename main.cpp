@@ -7,6 +7,38 @@
 
 #include <Hourly.h>
 
+struct Wiggly : Entity {
+    float x, y, d;
+
+    Wiggly() {
+        x = 0;
+        y = 100;
+        d = 0;
+    }
+
+    void update(float dt) override {
+        this->sprite.setRotation(this->sprite.getRotation() + 0.3f);
+
+        x += 6;
+        y += 1;
+        this->sprite.setPosition(x, y);
+
+        float z = cosf(tanf(d));
+        this->sprite.setScale(z, z);
+
+        d += 0.02;
+    }
+
+    void render(sf::RenderWindow& window) override {
+        // Wrap
+        if(x >= window.getSize().x) x = 0;
+        else if(y >= window.getSize().y) y = 0;
+
+        window.draw(this->sprite);
+    }
+};
+
+
 int main() {
     Renderer renderer;
     renderer.setupDefaultWindow();
@@ -21,16 +53,18 @@ int main() {
         throw Filesystem::FileNotFound(path);
     }
 
-    Entity e;
+    Wiggly e;
     textures.addResource("test", t);
     e.setTexture(textures.getResource("test"));
 
-    float x = 0;
+    Wiggly e1;
+    e1.setTexture(textures.getResource("test"));
+    e1.y = 300;
 
     // Shitty motion blur
     sf::RectangleShape clear;
     clear.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
-    clear.setFillColor(sf::Color(255, 128, 10, 10));
+    clear.setFillColor(sf::Color(255, 128, 10, 40));
 
     while (window.isOpen()) {
         sf::Event event = sf::Event();
@@ -41,15 +75,11 @@ int main() {
 
         window.draw(clear);
 
-        // Update
-        e.sprite.setRotation(e.sprite.getRotation() + 0.3f);
-        x += 3;
-        e.sprite.setPosition(x, 100);
+        e.update(0.002);
+        e.render(window);
 
-        if(x >= window.getSize().x) x = 0;
-
-        // Draw
-        window.draw(e.sprite);
+        e1.update(0.002);
+        e1.render(window);
 
         window.display();
     }
