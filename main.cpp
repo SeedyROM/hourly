@@ -1,16 +1,29 @@
 #include <iostream>
+#include <memory>
+#include <unistd.h>
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <SpriteAnimation.h>
+#include <Entity.h>
+#include <Filesystem.h>
+
 
 int main() {
-    auto *s = new Animation::SpriteAnimation();
-    std::cout << "Hello, Boys and Girls!" << std::endl;
+    sf::Texture t;
+    std::string path = Filesystem::getCwd() + "/../data" + "/test.png";
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    if(!t.loadFromFile(path)) {
+        throw Filesystem::FileNotFound(path);
+    }
+
+
+    auto tsp = std::make_shared<sf::Texture>(t);
+
+    Entity e;
+    e.setTexture(tsp);
+
+    sf::RenderWindow window(sf::VideoMode(800, 400), "SFML works!");
 
     while (window.isOpen()) {
         sf::Event event = sf::Event();
@@ -19,8 +32,8 @@ int main() {
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
+        window.clear(sf::Color(255, 128, 0));
+        window.draw(e.sprite);
         window.display();
     }
 
