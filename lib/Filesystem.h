@@ -23,5 +23,6 @@ namespace Filesystem {
 
     struct Path {
         static const std::string join(const std::vector<std::string>& paths);
+        static const std::string stripPathPart(std::string pathPart);
     };
 };
