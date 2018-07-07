@@ -9,6 +9,7 @@
 #include <linux/limits.h>
 #include <cstdlib>
 #include <memory>
+#include <vector>
 
 namespace Filesystem {
     struct FileNotFound : public std::exception {
@@ -19,4 +20,8 @@ namespace Filesystem {
     };
 
     const std::string getCwd();
+
+    struct Path {
+        static const std::string join(const std::vector<std::string>& paths);
+    };
 };

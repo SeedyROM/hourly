@@ -8,12 +8,14 @@
 #include <Entity.h>
 #include <Filesystem.h>
 
+using namespace Filesystem;
+
 int main() {
     sf::Texture t;
-    std::string path = Filesystem::getCwd() + "/../data" + "/test.png";
+    std::string path = Path::join({getCwd(), "/../data", "/test.png"});
 
     if(!t.loadFromFile(path)) {
-        throw Filesystem::FileNotFound(path);
+        throw FileNotFound(path);
     }
 
     t.setSmooth(true);
@@ -24,7 +26,6 @@ int main() {
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-
     sf::RenderWindow window(sf::VideoMode(800, 400), "SFML works!", sf::Style::Default, settings);
     window.setFramerateLimit(60);
 
@@ -38,7 +39,7 @@ int main() {
         }
 
         window.clear(sf::Color(255, 128, 0));
-        e.sprite.setRotation(e.sprite.getRotation() + 0.1f);
+        e.sprite.setRotation(e.sprite.getRotation() + 0.7f);
         x += 1;
         e.sprite.setPosition(x, 100);
         window.draw(e.sprite);
