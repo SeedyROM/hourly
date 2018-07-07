@@ -9,8 +9,9 @@
 #include <SFML/Graphics.hpp>
 
 struct Renderer {
-    sf::RenderWindow window;
+    sf::RenderWindow* window;
 
+    Renderer();
     ~Renderer();
 
     const sf::RenderWindow& setupDefaultWindow();

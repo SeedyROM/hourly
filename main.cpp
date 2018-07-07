@@ -5,11 +5,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <Entity.h>
-#include <Filesystem.h>
-#include <TextureContext.h>
-#include <Renderer.h>
-
+#include <Hourly.h>
 
 int main() {
     sf::Texture t;

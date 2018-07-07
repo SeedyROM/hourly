@@ -20,3 +20,7 @@ const sf::RenderWindow& Renderer::setupWindow(Args... args) {
 Renderer::~Renderer() {
     free(this->window);
 }
+
+Renderer::Renderer() {
+    this->window = nullptr;
+}
