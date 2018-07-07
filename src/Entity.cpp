@@ -2,7 +2,7 @@
 // Created by rombus on 7/7/18.
 //
 
-#include <Entity.h>
+#include "Entity.h"
 
 Entity::Entity() {
     this->sprite.setPosition(0, 0);
