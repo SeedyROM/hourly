@@ -8,44 +8,50 @@
 #include <Hourly.h>
 
 int main() {
-    sf::Texture t;
-    std::string path = Filesystem::Path::join({Filesystem::getCwd(), "/../data"}) + "test.png";
+    Renderer renderer;
+    renderer.setupDefaultWindow();
 
+    sf::RenderWindow& window = renderer.window;
+    TextureContext& textures = renderer.textures;
+
+    sf::Texture t;
+    t.setSmooth(true);
+    std::string path = Filesystem::Path::join({Filesystem::getCwd(), "/../data"}) + "test.png";
     if(!t.loadFromFile(path)) {
         throw Filesystem::FileNotFound(path);
     }
-    t.setSmooth(true);
-
-    TextureContext tc;
-    tc.addResource("test", t);
 
     Entity e;
-    e.setTexture(tc.getResource("test"));
-
-    Renderer renderer;
-    renderer.setupDefaultWindow();
-    auto window = renderer.window;
+    textures.addResource("test", t);
+    e.setTexture(textures.getResource("test"));
 
     float x = 0;
 
-    while (window->isOpen()) {
+    // Shitty motion blur
+    sf::RectangleShape clear;
+    clear.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
+    clear.setFillColor(sf::Color(255, 128, 10, 10));
+
+    while (window.isOpen()) {
         sf::Event event = sf::Event();
-        while (window->pollEvent(event)) {
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                window->close();
+                window.close();
         }
 
-        window->clear(sf::Color(255, 128, 0));
+        window.draw(clear);
 
         // Update
-        e.sprite.setRotation(e.sprite.getRotation() + 0.7f);
-        x += 1;
+        e.sprite.setRotation(e.sprite.getRotation() + 0.3f);
+        x += 3;
         e.sprite.setPosition(x, 100);
 
-        // Draw
-        window->draw(e.sprite);
+        if(x >= window.getSize().x) x = 0;
 
-        window->display();
+        // Draw
+        window.draw(e.sprite);
+
+        window.display();
     }
 
     return 0;

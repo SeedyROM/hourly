@@ -5,6 +5,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <exception>
 
 #include <SFML/Graphics.hpp>
 
@@ -14,4 +15,9 @@ struct TextureContext {
 
 protected:
     std::unordered_map<std::string, std::shared_ptr<sf::Texture>> resources;
+};
+
+
+struct InvalidResourceKey : public std::exception {
+    const char* what() const noexcept;
 };

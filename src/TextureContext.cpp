@@ -17,5 +17,12 @@ bool TextureContext::addResource(const std::string& key, sf::Texture &texture) {
 }
 
 std::shared_ptr<sf::Texture> TextureContext::getResource(const std::string &key) {
+    if(this->resources.find(key) == this->resources.end()) {
+        throw InvalidResourceKey();
+    }
     return this->resources[key];
+}
+
+const char *InvalidResourceKey::what() const noexcept {
+    return "Invalid resource key!";
 }

@@ -8,12 +8,12 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+#include <TextureContext.h>
+
 struct Renderer {
-    sf::RenderWindow* window;
-
-    Renderer();
-    ~Renderer();
-
+    sf::RenderWindow window;
+    TextureContext textures;
+    
     const sf::RenderWindow& setupDefaultWindow();
     template<class ...Args> const sf::RenderWindow& setupWindow(Args...);
 };
