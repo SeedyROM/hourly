@@ -13,11 +13,14 @@ struct Entity {
     std::shared_ptr<sf::Texture> texture;
 
     Entity();
-    Entity(const float x, const float y);
+    Entity(float x, float y);
+
+    void centerOrigin();
+    void setOrigin(float x, float y);
 
     void setTexture(std::shared_ptr<sf::Texture> texture);
     std::shared_ptr<sf::Texture> getTexture();
 
     sf::Vector2f getPosition();
-    void setPosition(const float x, const float y);
+    void setPosition(float x, float y);
 };

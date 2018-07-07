@@ -8,7 +8,6 @@
 #include <Entity.h>
 #include <Filesystem.h>
 
-
 int main() {
     sf::Texture t;
     std::string path = Filesystem::getCwd() + "/../data" + "/test.png";
@@ -17,13 +16,19 @@ int main() {
         throw Filesystem::FileNotFound(path);
     }
 
-
+    t.setSmooth(true);
     auto tsp = std::make_shared<sf::Texture>(t);
 
     Entity e;
     e.setTexture(tsp);
 
-    sf::RenderWindow window(sf::VideoMode(800, 400), "SFML works!");
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
+    sf::RenderWindow window(sf::VideoMode(800, 400), "SFML works!", sf::Style::Default, settings);
+    window.setFramerateLimit(60);
+
+    float x = 0;
 
     while (window.isOpen()) {
         sf::Event event = sf::Event();
@@ -33,6 +38,9 @@ int main() {
         }
 
         window.clear(sf::Color(255, 128, 0));
+        e.sprite.setRotation(e.sprite.getRotation() + 0.1f);
+        x += 1;
+        e.sprite.setPosition(x, 100);
         window.draw(e.sprite);
         window.display();
     }
