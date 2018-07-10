@@ -10,7 +10,6 @@
 
 struct Entity {
     sf::Sprite sprite;
-    std::shared_ptr<sf::Texture> texture;
 
     Entity();
     Entity(float x, float y);
@@ -24,6 +23,9 @@ struct Entity {
     sf::Vector2f getPosition();
     void setPosition(float x, float y);
 
-    virtual void update(float dt) = 0;
-    virtual void render(sf::RenderWindow& window) = 0;
+    virtual void update(float dt) {};
+    virtual void render(sf::RenderWindow& window) {};
+
+protected:
+    std::shared_ptr<sf::Texture> texture;
 };

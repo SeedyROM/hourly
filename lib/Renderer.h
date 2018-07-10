@@ -14,6 +14,8 @@ struct Renderer {
     sf::RenderWindow window;
     TextureContext textures;
     
-    const sf::RenderWindow& setupDefaultWindow();
-    template<class ...Args> const sf::RenderWindow& setupWindow(Args...);
+    void setupDefaultWindow();
+    void setupDefaultWindow(unsigned int x, unsigned int y);
+    template<class ...Args> void setupWindow(Args...);
+
 };
